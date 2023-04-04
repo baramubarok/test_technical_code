@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Technical</title>
+
+    <script src="jquery.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <input type="number" placeholder="Input Angka" id="inputNumber">
+    <div style="margin-top: 12px">
+        <button onclick="genTriangle()">Generate Segitiga</button>
+        <button onclick="genOddNumber()">Generate Bilangan Ganjil</button>
+        <button onclick="genPrimeNumber()">Generate Bilangan Prima</button>
+    </div>
+    <h2>Result :</h2>
+    <div id="resultNumber"></div>
+
+    <script>
+        const base_url = 'https://localhost:3000/'
+        function genTriangle() {
+            const val = $('#inputNumber').val()
+            if (val==null || val=='') {
+                alert('Angka tidak boleh kosong')
+            } else {
+                for (let i=1; i <= val.length; i++) {
+                    let row = val[i-1]
+                    for (let x=0; x < i; x++) {
+                        row+='0'
+                    }
+                    row+='<br>'
+                    $('#resultNumber').append(row)
+                }
+            }
+        }
+        function genOddNumber() {
+            const val = $('#inputNumber').val()
+            if (val==null || val=='') {
+                alert('Angka tidak boleh kosong')
+            } else {
+                let odd = ''
+                for (let i=1; i <= val; i++) {
+                    if (i%2!=0) {
+                        odd += i + ', '
+                    }
+                }
+                $('#resultNumber').html(odd)
+            }
+        }
+        function genPrimeNumber() {
+            const val = $('#inputNumber').val()
+            if (val==null || val=='') {
+                alert('Angka tidak boleh kosong')
+            } else {
+                let prime = ''
+                for (let i=1; i <= val; i++) {
+                    if (isPrime(i)) {
+                        prime += i + ', '
+                    }
+                }
+
+                $('#resultNumber').html(prime)
+            }
+        }
+
+        function isPrime(num) {
+            for(let i = 2, s = Math.sqrt(num); i <= s; i++) {
+                if(num % i === 0) return false;
+            }
+            return num > 1;
+        }
+    </script>
+</body>
+</html>
