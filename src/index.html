@@ -19,20 +19,28 @@
     <div id="resultNumber"></div>
 
     <script>
-        const base_url = 'https://localhost:3000/'
+        const base_url = 'http://localhost:3000/'
         function genTriangle() {
             const val = $('#inputNumber').val()
             if (val==null || val=='') {
                 alert('Angka tidak boleh kosong')
             } else {
-                for (let i=1; i <= val.length; i++) {
-                    let row = val[i-1]
-                    for (let x=0; x < i; x++) {
-                        row+='0'
+                $.ajax({
+                    url: base_url + 'triangle',
+                    type: 'POST',
+                    data: {
+                        num: val
+                    },
+                    headers: {
+                        "Accept": "application/json",
+                        "Access-Control-Allow-Origin":"*",
+                        "Access-Control-Allow-Credentials":"true",
+                        "Access-Control-Allow-Methods":"GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                    },
+                    success: (response) => {
+                        $('#resultNumber').html(response.data)
                     }
-                    row+='<br>'
-                    $('#resultNumber').append(row)
-                }
+                })
             }
         }
         function genOddNumber() {
@@ -40,13 +48,22 @@
             if (val==null || val=='') {
                 alert('Angka tidak boleh kosong')
             } else {
-                let odd = ''
-                for (let i=1; i <= val; i++) {
-                    if (i%2!=0) {
-                        odd += i + ', '
+                $.ajax({
+                    url: base_url + 'odd',
+                    type: 'POST',
+                    data: {
+                        num: val
+                    },
+                    headers: {
+                        "Accept": "application/json",
+                        "Access-Control-Allow-Origin":"*",
+                        "Access-Control-Allow-Credentials":"true",
+                        "Access-Control-Allow-Methods":"GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                    },
+                    success: (response) => {
+                        $('#resultNumber').html(response.data)
                     }
-                }
-                $('#resultNumber').html(odd)
+                })
             }
         }
         function genPrimeNumber() {
@@ -54,22 +71,23 @@
             if (val==null || val=='') {
                 alert('Angka tidak boleh kosong')
             } else {
-                let prime = ''
-                for (let i=1; i <= val; i++) {
-                    if (isPrime(i)) {
-                        prime += i + ', '
+                $.ajax({
+                    url: base_url + 'prime',
+                    type: 'POST',
+                    data: {
+                        num: val
+                    },
+                    headers: {
+                        "Accept": "application/json",
+                        "Access-Control-Allow-Origin":"*",
+                        "Access-Control-Allow-Credentials":"true",
+                        "Access-Control-Allow-Methods":"GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                    },
+                    success: (response) => {
+                        $('#resultNumber').html(response.data)
                     }
-                }
-
-                $('#resultNumber').html(prime)
+                })
             }
-        }
-
-        function isPrime(num) {
-            for(let i = 2, s = Math.sqrt(num); i <= s; i++) {
-                if(num % i === 0) return false;
-            }
-            return num > 1;
         }
     </script>
 </body>
